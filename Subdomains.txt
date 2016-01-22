@@ -1,0 +1,5 @@
+Put your ordered list of subdomains here.
+
+How many subdomains did you find? Submit the list of subdomains ordered alphabetically and the number of unique pages detected in each subdomain. The file should be called Subdomains.txt, and its content should be lines containing the URL, a comma, a space, and the number.
+
+This can be generated after crawling by querying for URLs and then filtering out unique subdomains.

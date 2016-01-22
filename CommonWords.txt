@@ -1,0 +1,5 @@
+Put your list of the most common 100 words here.
+
+What are the 500 most common words in this domain? (Ignore English stop words, which can be found, for example, at http://www.ranks.nl/stopwords.) Submit the list of common words ordered by frequency (and alphabetically for words with the same frequency) in a file called CommonWords.txt.
+
+This can be generated after crawling by querying for HTML bodies and then running them through the functions written for the first assignment.

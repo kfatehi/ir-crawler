@@ -1,0 +1,5 @@
+How much time did it take to crawl the entire domain?
+
+How many unique pages did you find in the entire domain? (Uniqueness is established by the URL, not the page's content.)
+
+What is the longest page in terms of number of words? (Don't count HTML markup as words.)
