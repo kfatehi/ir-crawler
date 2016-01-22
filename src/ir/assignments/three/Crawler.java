@@ -54,7 +54,7 @@ public class Crawler extends WebCrawler {
 	public static Collection<String> crawl(String seedURL) {
 		resetVisitedURLs();
 
-		int numberOfCrawlers = 300;
+		int numberOfCrawlers = 4;
 
 		CrawlConfig config = makeConfig();
 
@@ -121,13 +121,13 @@ public class Crawler extends WebCrawler {
 		if (page.getParseData() instanceof HtmlParseData) {
 			if (Database.connected()) {
 			   	if (PageRepo.existsWithURL(url)) {
-					logger.info("URL already exists in database: "+url);
+					logger.info("URL exists in db: "+url);
 				} else {
 					HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
 					String text = htmlParseData.getText();
 					String html = htmlParseData.getHtml();
 					if (PageRepo.insert(url, html, text)) {
-						logger.info("URL saved in database: "+url);
+						logger.info("URL saved to db: "+url);
 					}
 				}
 			}
@@ -153,6 +153,8 @@ public class Crawler extends WebCrawler {
 		if (Pattern.matches("ics\\.uci\\.edu\\/calendar\\.php\\?", url)) {
 			return false;
 		}
+
+		logger.info("Will visit: "+url)
 
 		// Otherwise visit the page
 		return true;
