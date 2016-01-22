@@ -28,11 +28,7 @@ public class Database {
 				String url = "jdbc:postgresql://keyvan.pw:25432/ir_"+env;
 				Properties props = new Properties();
 				props.setProperty("user", "ir_"+env);
-				if (env.equals("test")) {
-					props.setProperty("password", System.getProperty("pg_password"));
-				} else if (env.equals("prod")) {
-					props.setProperty("password", "9jg57vhff003k");
-				}
+				props.setProperty("password", System.getProperty("pg_password"));
 				props.setProperty("ssl", "true");
 				conn = DriverManager.getConnection(url, props);
 				return true;
