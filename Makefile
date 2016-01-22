@@ -28,11 +28,12 @@ migrate-pristine: compile
 	@java -classpath $(CLASSPATH) -D$(JDBC) ir.assignments.three.db.Migrate pristine
 
 crawl: compile
-	@java -classpath $(CLASSPATH) -D$(JDBC) \
+	@mkdir -p _logs
+	java -classpath $(CLASSPATH) -D$(JDBC) \
 		-Dorg.slf4j.simpleLogger.showDateTime=true \
 		-Dorg.slf4j.simpleLogger.dateTimeFormat="yyyy-MM-dd'T'HH:mm:ss.SSSZ" \
 		-Dpg_password=$(shell cat _private/prod_db_password.txt) \
-	 	ir.assignments.three.Crawler
+	 	ir.assignments.three.Crawler > _logs/$(shell date +"%m-%d-%Y_%H").txt 2>&1
 
 test: compile
 	@java -classpath $(CLASSPATH) -D$(JDBC) \
