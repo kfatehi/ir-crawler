@@ -6,6 +6,7 @@ ASSERT=test/lib/hamcrest-core-1.3.jar
 JUNIT=test/lib/junit-4.12.jar
 JDBC=jdbc.drivers=org.postgresql.Driver
 CLASSPATH=.:$(LOGGER):$(ASSERT):$(JUNIT):$(CRAWLER):$(PGSQL):$(BUILD)
+LOGSTAMP:=$(shell date +"%m-%d-%Y_%H")
 
 SHORTSTACK=node test/support/shortstack.js
 
@@ -22,18 +23,24 @@ PKG= \
 default: test
 
 migrate: compile
-	@java -classpath $(CLASSPATH) -D$(JDBC) ir.assignments.three.db.Migrate
+	@java -classpath $(CLASSPATH) -D$(JDBC) \
+		-Dpg_password=$(shell cat _private/prod_db_password.txt) \
+		ir.assignments.three.db.Migrate
 
 migrate-pristine: compile
-	@java -classpath $(CLASSPATH) -D$(JDBC) ir.assignments.three.db.Migrate pristine
+	@java -classpath $(CLASSPATH) -D$(JDBC) \
+		-Dpg_password=$(shell cat _private/prod_db_password.txt) \
+		ir.assignments.three.db.Migrate pristine
 
 crawl: compile
 	@mkdir -p _logs
+	touch _logs/$(LOGSTAMP).txt
+	ln -sf $(LOGSTAMP).txt _logs/current.txt
 	java -classpath $(CLASSPATH) -D$(JDBC) \
 		-Dorg.slf4j.simpleLogger.showDateTime=true \
 		-Dorg.slf4j.simpleLogger.dateTimeFormat="yyyy-MM-dd'T'HH:mm:ss.SSSZ" \
 		-Dpg_password=$(shell cat _private/prod_db_password.txt) \
-	 	ir.assignments.three.Crawler > _logs/$(shell date +"%m-%d-%Y_%H").txt 2>&1
+	 	ir.assignments.three.Crawler > _logs/$(LOGSTAMP).txt 2>&1
 
 test: compile
 	@java -classpath $(CLASSPATH) -D$(JDBC) \
