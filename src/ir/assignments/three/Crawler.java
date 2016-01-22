@@ -154,7 +154,7 @@ public class Crawler extends WebCrawler {
 			return false;
 		}
 
-		logger.info("Will visit: "+url)
+		logger.info("Will visit: "+url);
 
 		// Otherwise visit the page
 		return true;
