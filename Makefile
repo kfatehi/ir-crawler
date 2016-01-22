@@ -49,7 +49,7 @@ crawl: compile
 test: compile
 	@java -classpath $(CLASSPATH) -D$(JDBC) \
 		-Dpg_password=$(shell cat _private/test_db_password.txt) \
-		org.junit.runner.JUnitCore $(PKG) | $(SHORTSTACK)
+		org.junit.runner.JUnitCore $(PKG)
 
 compile: clean
 	@javac -g -d $(BUILD) -classpath $(CLASSPATH) $(SRC)
