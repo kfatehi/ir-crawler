@@ -36,7 +36,7 @@ public class Crawler extends WebCrawler {
 		config.setPolitenessDelay(600); // No less than 600ms!
 		config.setUserAgentString(
 				"UCI Inf141-CS121 crawler 63393716 32393047 22863530 82181685");
-		config.setResumableCrawling(true);
+		config.setResumableCrawling(false);
 		return config;
 	}
 
