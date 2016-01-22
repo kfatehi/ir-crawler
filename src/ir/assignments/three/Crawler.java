@@ -54,7 +54,7 @@ public class Crawler extends WebCrawler {
 	public static Collection<String> crawl(String seedURL) {
 		resetVisitedURLs();
 
-		int numberOfCrawlers = 12;
+		int numberOfCrawlers = 300;
 
 		CrawlConfig config = makeConfig();
 
