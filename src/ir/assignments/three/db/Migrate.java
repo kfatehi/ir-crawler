@@ -15,7 +15,7 @@ public class Migrate {
 	 *
 	 * Argument `pristine` drops all tables before migration */
 	public static void main(String[] args) {
-		Database.connect("prod");
+		Database.configure("prod");
 
 		if (args.length >= 1 && args[0].equals("pristine")) {
 			dropAllTables();

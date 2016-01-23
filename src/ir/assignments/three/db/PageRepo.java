@@ -16,8 +16,10 @@ public class PageRepo {
 	 * Does a page exist in the database with this URL? */
 	public static boolean existsWithURL(String url) {
 		boolean exists = false;
+		Connection con = null;
 		try {
-			PreparedStatement st = Database.conn.prepareStatement(
+			con = Database.getConnection();
+			PreparedStatement st = con.prepareStatement(
 					"SELECT EXISTS(SELECT 1 FROM PAGES WHERE URL = ?)");
 			st.setString(1, url);
 			ResultSet rs = st.executeQuery();
@@ -26,13 +28,19 @@ public class PageRepo {
 			st.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (con != null) {
+				try { con.close(); } catch (SQLException e) {}
+			}
 		}
 		return exists;
 	}
 
 	public static boolean insert(String url, String html, String text) {
+		Connection con = null;
 		try {
-			PreparedStatement st = Database.conn.prepareStatement(
+			con = Database.getConnection();
+			PreparedStatement st = con.prepareStatement(
 					"INSERT INTO PAGES (URL,HTML,TEXT) VALUES (?,?,?)");
 			st.setString(1, url);
 			st.setString(2, html);
@@ -42,6 +50,10 @@ public class PageRepo {
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			if (con != null) {
+				try { con.close(); } catch (SQLException e) {}
+			}
 		}
 		return false;
 	}

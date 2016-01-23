@@ -11,7 +11,7 @@ import ir.assignments.three.db.Migrate;
  */
 public class TestHelper {
 	public static void resetDatabase() {
-		Database.connect("test");
+		Database.configure("test");
 		Migrate.dropAllTables();
 		Migrate.runMigrations();
 	}

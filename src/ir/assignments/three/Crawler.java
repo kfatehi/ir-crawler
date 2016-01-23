@@ -119,7 +119,7 @@ public class Crawler extends WebCrawler {
 		addVisitedURL(url);
 
 		if (page.getParseData() instanceof HtmlParseData) {
-			if (Database.connected()) {
+			if (Database.configured()) {
 			   	if (PageRepo.existsWithURL(url)) {
 					logger.info("URL exists in db: "+url);
 				} else {
@@ -166,7 +166,7 @@ public class Crawler extends WebCrawler {
 	 * Connects to the production database, and then crawls ICS.
 	 */
 	public static void main(String[] args) {
-		if (Database.connect("prod")) {
+		if (Database.configure("prod")) {
 			System.out.println("Connected to database");
 		}
 		crawl("http://www.ics.uci.edu/");
