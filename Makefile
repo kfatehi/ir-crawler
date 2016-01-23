@@ -1,11 +1,12 @@
 BUILD=_build
 CRAWLER=lib/crawler4j-4.1-jar-with-dependencies.jar
 PGSQL=lib/postgresql-9.4.1207.jre6.jar
+HIKARI=lib/HikariCP-2.4.3.jar
 LOGGER=lib/slf4j-simple-1.7.13.jar
 ASSERT=test/lib/hamcrest-core-1.3.jar
 JUNIT=test/lib/junit-4.12.jar
 JDBC=jdbc.drivers=org.postgresql.Driver
-CLASSPATH=.:$(LOGGER):$(ASSERT):$(JUNIT):$(CRAWLER):$(PGSQL):$(BUILD)
+CLASSPATH=.:$(LOGGER):$(ASSERT):$(JUNIT):$(CRAWLER):$(PGSQL):$(HIKARI):$(BUILD)
 LOGSTAMP:=$(shell date +"%m-%d-%Y_%H-%M-%S")
 LOGDIR=/home/kfatehi/public_html/crawler_logs
 
@@ -59,7 +60,7 @@ clean:
 	@mkdir -p $(BUILD)
 
 tdd:
-	watchy -w Makefile,src,test -- bash -c "clear; make test"
+	watchy -w Makefile,src,test -- bash -c "clear; make test | $(SHORTSTACK)"
 
 autotest: tdd
 
