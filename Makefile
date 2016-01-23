@@ -48,7 +48,9 @@ crawl-log: compile
 	touch $(LOGDIR)/current.txt
 	chmod 755 $(LOGDIR)
 	chmod 755 $(LOGDIR)/*
-	make crawl > $(LOGDIR)/current.txt 2>&1
+	wait
+	make crawl > $(LOGDIR)/current.txt 2>&1 &
+	tail -f $(LOGDIR)/current.txt
 
 test: compile
 	@java -classpath $(CLASSPATH) -D$(JDBC) \
