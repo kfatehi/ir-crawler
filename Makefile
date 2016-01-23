@@ -20,7 +20,7 @@ SRC= \
 
 PKG= \
 		 ir.test.CrawlerTest \
-		 #ir.test.PageRepoTest
+		 ir.test.PageRepoTest
 
 default: test
 
