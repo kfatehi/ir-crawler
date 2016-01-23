@@ -180,7 +180,7 @@ public class Crawler extends WebCrawler {
 			if (path.matches(".+\\.ico$")) return false;
 
 		} catch (URISyntaxException e) {
-			e.printStackTrace();
+			// ignore and dont try to visit malformed URL
 			return false;
 		}
 
