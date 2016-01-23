@@ -51,14 +51,20 @@ public class Database {
 	 * or any SQL command that returns nothing. */
 	public static boolean executeUpdate(String sql) {
 		if (configured()) {
+			Connection con = null;
 			try {
-				Statement st = getConnection().createStatement();
+				con = getConnection();
+				Statement st = con.createStatement();
 				st.executeUpdate(sql);
 				st.close();
 				System.out.println(sql);
 				return true;
-			} catch (SQLException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
+			} finally {
+				if (con != null) {
+					try { con.close(); } catch (Exception e) {}
+				}
 			}
 		}
 		return false;

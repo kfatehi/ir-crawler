@@ -26,11 +26,11 @@ public class PageRepo {
 			rs.next();
 			exists = rs.getBoolean(1);
 			st.close();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			if (con != null) {
-				try { con.close(); } catch (SQLException e) {}
+				try { con.close(); } catch (Exception e) {}
 			}
 		}
 		return exists;
@@ -48,11 +48,11 @@ public class PageRepo {
 			st.executeUpdate();
 			st.close();
 			return true;
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			if (con != null) {
-				try { con.close(); } catch (SQLException e) {}
+				try { con.close(); } catch (Exception e) {}
 			}
 		}
 		return false;
