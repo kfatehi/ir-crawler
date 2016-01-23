@@ -196,9 +196,10 @@ public class Crawler extends WebCrawler {
 	 * Connects to the production database, and then crawls ICS.
 	 */
 	public static void main(String[] args) {
-		if (Database.configure("prod")) {
-			System.out.println("Connected to database");
-		}
+		// If we don't run with a database, does it still hang forever or will it complete eventually?
+		//if (Database.configure("prod")) {
+		//	System.out.println("Connected to database");
+		//}
 		crawl("http://www.ics.uci.edu/");
 	}
 }
