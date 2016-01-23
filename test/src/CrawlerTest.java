@@ -29,7 +29,7 @@ public class CrawlerTest extends TestCase {
 		Page ref = new Page(new WebURL());
 		WebURL url = new WebURL();
 
-		url.setURL("something else");
+		url.setURL("http://something.else");
 		assertFalse("does not visit a non-ics url", crawler.shouldVisit(ref, url));
 
 		url.setURL("http://ics.uci.edu/");
@@ -40,6 +40,37 @@ public class CrawlerTest extends TestCase {
 
 		url.setURL("http://foo.bar.baz.ics.uci.edu/foo");
 		assertTrue("visits ics url with multipart subdomain", crawler.shouldVisit(ref, url));
+	}
+
+	/**
+	 * Does not crawl certain urls */
+	public void testShouldVisitExampleTwo() throws Exception {
+		Page ref = new Page(new WebURL());
+		WebURL url = new WebURL();
+
+		url.setURL("http://www.ics.uci.edu/calendar.php?somedate=123123");
+		assertFalse("won't visit query string urls", crawler.shouldVisit(ref, url));
+
+		url.setURL("http://www.ics.uci.edu/bin/img/logos/socialmedia/twitter.png");
+		assertFalse("won't visit .png", crawler.shouldVisit(ref, url));
+
+		url.setURL("http://www.ics.uci.edu/bin/img/logos/socialmedia/twitter.jpg");
+		assertFalse("won't visit .jpg", crawler.shouldVisit(ref, url));
+
+		url.setURL("http://www.ics.uci.edu/bin/img/logos/socialmedia/twitter.gif");
+		assertFalse("won't visit .gif", crawler.shouldVisit(ref, url));
+
+		url.setURL("http://www.ics.uci.edu/somefile.css");
+		assertFalse("won't visit .css", crawler.shouldVisit(ref, url));
+
+		url.setURL("http://www.ics.uci.edu/somefile.pdf");
+		assertFalse("won't visit .pdf", crawler.shouldVisit(ref, url));
+
+		url.setURL("http://www.ics.uci.edu/somefile.ps");
+		assertFalse("won't visit .ps", crawler.shouldVisit(ref, url));
+
+		url.setURL("http://www.ics.uci.edu/somefile.js");
+		assertFalse("won't visit .js", crawler.shouldVisit(ref, url));
 	}
 
 	/**

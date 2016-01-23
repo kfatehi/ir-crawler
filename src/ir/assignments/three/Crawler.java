@@ -21,6 +21,9 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 public class Crawler extends WebCrawler {
 
 	static ArrayList<String> visitedURLs;
@@ -36,7 +39,7 @@ public class Crawler extends WebCrawler {
 		config.setPolitenessDelay(600); // No less than 600ms!
 		config.setUserAgentString(
 				"UCI Inf141-CS121 crawler 63393716 32393047 22863530 82181685");
-		config.setResumableCrawling(true);
+		config.setResumableCrawling(false);
 		return config;
 	}
 
@@ -144,13 +147,36 @@ public class Crawler extends WebCrawler {
 	public boolean shouldVisit(Page referringPage, WebURL weburl) {
 		String url = weburl.getURL().toLowerCase();
 
-		// First of all, it needs to be a ICS url
-		if (! Pattern.matches("^http.+ics\\.uci\\.edu.*", url)) {
-			return false;
-		}
+		try {
+			URI uri = new URI(url);
 
-		// Trap: Skip ICS calendar.php query string URLs
-		if (Pattern.matches("ics\\.uci\\.edu\\/calendar\\.php\\?", url)) {
+			String path = uri.getPath();
+			String host = uri.getHost();
+			String queryString = uri.getQuery();
+
+			// limit to ics.uci.edu
+			if (! host.matches(".*ics\\.uci\\.edu$")) return false;
+
+			// this should prevent the calendar trap
+			// and similar ones based on query string
+			if (queryString != null) return false;
+
+			// prevent images, pdfs, etc
+			if (path.matches(".+\\.png$")) return false;
+			if (path.matches(".+\\.jpg$")) return false;
+			if (path.matches(".+\\.gif$")) return false;
+			if (path.matches(".+\\.css$")) return false;
+			if (path.matches(".+\\.js$")) return false;
+			if (path.matches(".+\\.pdf$")) return false;
+			if (path.matches(".+\\.ps$")) return false;
+			if (path.matches(".+\\.ppt$")) return false;
+			if (path.matches(".+\\.pptx$")) return false;
+			if (path.matches(".+\\.doc$")) return false;
+			if (path.matches(".+\\.docx$")) return false;
+			if (path.matches(".+\\.ico$")) return false;
+
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
 			return false;
 		}
 
