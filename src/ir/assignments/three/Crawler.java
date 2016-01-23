@@ -86,6 +86,10 @@ public class Crawler extends WebCrawler {
 			e.printStackTrace();
 		}
 
+		System.out.println("DONE!");
+
+		System.out.println(getVisitedURLs());
+
 		return getVisitedURLs();
 	}
 
