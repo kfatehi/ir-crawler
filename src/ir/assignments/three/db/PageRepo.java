@@ -10,7 +10,7 @@ public class PageRepo {
 	 * table: pages
 	 * columns: int id, string url, text html, text text */
 	public static String schema =
-		"ID SERIAL PRIMARY KEY, URL CHAR(2083) UNIQUE NOT NULL, HTML TEXT NOT NULL, TEXT TEXT NOT NULL";
+		"ID SERIAL PRIMARY KEY, URL CHAR(2083) UNIQUE NOT NULL, TEXT TEXT NOT NULL";
 
 	/**
 	 * Does a page exist in the database with this URL? */
@@ -36,15 +36,14 @@ public class PageRepo {
 		return exists;
 	}
 
-	public static boolean insert(String url, String html, String text) {
+	public static boolean insert(String url, String text) {
 		Connection con = null;
 		try {
 			con = Database.getConnection();
 			PreparedStatement st = con.prepareStatement(
-					"INSERT INTO PAGES (URL,HTML,TEXT) VALUES (?,?,?)");
+					"INSERT INTO PAGES (URL,TEXT) VALUES (?,?)");
 			st.setString(1, url);
-			st.setString(2, html);
-			st.setString(3, text);
+			st.setString(2, text);
 			st.executeUpdate();
 			st.close();
 			return true;

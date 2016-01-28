@@ -13,10 +13,9 @@ public class PageRepoTest extends TestCase {
 
 	public void testExistsWithURL() throws Exception {
 		String url = "somewhere";
-		String html = "something";
 		String text = "something";
 		assertFalse(PageRepo.existsWithURL(url));
-		PageRepo.insert(url, html, text);
+		PageRepo.insert(url, text);
 		assertTrue(PageRepo.existsWithURL(url));
 	}
 }

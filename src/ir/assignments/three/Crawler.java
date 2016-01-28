@@ -132,8 +132,7 @@ public class Crawler extends WebCrawler {
 				} else {
 					HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
 					String text = htmlParseData.getText();
-					String html = htmlParseData.getHtml();
-					if (PageRepo.insert(url, html, text)) {
+					if (PageRepo.insert(url, text)) {
 						logger.info("URL saved to db: "+url);
 					}
 				}
