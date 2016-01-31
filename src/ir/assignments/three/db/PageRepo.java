@@ -10,7 +10,7 @@ public class PageRepo {
 	 * table: pages
 	 * columns: int id, string url, text html, text text */
 	public static String schema =
-		"ID SERIAL PRIMARY KEY, URL CHAR(2083) UNIQUE NOT NULL, TEXT TEXT NOT NULL";
+		"ID SERIAL PRIMARY KEY, URL TEXT UNIQUE NOT NULL, TEXT TEXT, STATE TEXT";
 
 	/**
 	 * Does a page exist in the database with this URL? */

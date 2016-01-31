@@ -7,8 +7,7 @@ public class Migrate {
 	/**
 	 * A really primitive set of migrations. */
 	static String migrations[] = {
-		"CREATE TABLE IF NOT EXISTS pages("+PageRepo.schema+");",
-		"CREATE TABLE IF NOT EXISTS pgshelve(ID SERIAL PRIMARY KEY, KEY CHAR(2083) UNIQUE NOT NULL, VALUE TEXT);"
+		"CREATE TABLE IF NOT EXISTS pages("+PageRepo.schema+")"
 	};
 
 	/**
@@ -36,6 +35,5 @@ public class Migrate {
 	 * Destructive action that drops all database tables. */
 	public static void dropAllTables() {
 		Database.executeUpdate("DROP TABLE IF EXISTS PAGES");
-		Database.executeUpdate("DROP TABLE IF EXISTS PGSHELVE");
 	}
 }
